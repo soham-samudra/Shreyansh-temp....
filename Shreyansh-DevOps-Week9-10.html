@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Shreyansh Shirbhate Week 9-10 GitHub, NPM and error handling project.">
+<title>Shreyansh — Build Pipeline</title>
+
+<style>
+:root{
+  --ink:#17202a;
+  --muted:#69727d;
+  --paper:#f7f3ea;
+  --white:#fffdf8;
+  --line:#d8d1c5;
+  --blue:#3267e3;
+  --red:#e65b45;
+  --green:#398a62;
+  --yellow:#f2c94c;
+  --purple:#7b61c9;
+  --shadow:0 14px 35px rgba(25,30,35,.08);
+  --max:1160px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 80% 5%,rgba(50,103,227,.08),transparent 24%),
+    var(--paper);
+  font-family:Inter,Arial,sans-serif;
+  line-height:1.55;
+}
+a{text-decoration:none;color:inherit}
+button,input,select{font:inherit}
+.container{width:min(92%,var(--max));margin:auto}
+
+/* HEADER */
+header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(247,243,234,.9);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line)
+}
+nav{
+  min-height:70px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px
+}
+.brand{font-weight:950;letter-spacing:-1px}
+.brand i{font-style:normal;color:var(--blue)}
+.nav-links{display:flex;gap:24px;font-size:.82rem;font-weight:800}
+.nav-links a:hover{color:var(--blue)}
+.branch-pill{
+  padding:7px 11px;border:1px solid var(--line);
+  border-radius:8px;background:var(--white);
+  font:700 .72rem monospace
+}
+
+/* HERO */
+.hero{padding:65px 0 45px}
+.hero-grid{
+  display:grid;grid-template-columns:1.1fr .9fr;gap:18px
+}
+.hero-main{
+  min-height:500px;padding:50px;
+  border-radius:24px;background:var(--ink);color:white;
+  position:relative;overflow:hidden
+}
+.hero-main:before{
+  content:"";
+  position:absolute;right:-90px;bottom:-100px;
+  width:300px;height:300px;border-radius:50%;
+  background:var(--blue)
+}
+.eyebrow{
+  color:var(--yellow);font:900 .68rem monospace;
+  letter-spacing:2px;text-transform:uppercase
+}
+h1{
+  max-width:750px;margin:20px 0;
+  font-size:clamp(3rem,6vw,6rem);
+  line-height:.88;letter-spacing:-6px
+}
+h1 span{color:var(--yellow)}
+.hero-copy{max-width:650px;color:#c8cdd3}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.btn{
+  min-height:45px;padding:0 17px;
+  border:1px solid var(--line);border-radius:9px;
+  background:var(--white);font-weight:900;cursor:pointer;
+  transition:.2s
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-blue{background:var(--blue);color:white;border-color:var(--blue)}
+.btn-red{background:var(--red);color:white;border-color:var(--red)}
+.btn-green{background:var(--green);color:white;border-color:var(--green)}
+
+.pipeline{
+  padding:30px;border:1px solid var(--line);
+  border-radius:24px;background:var(--white);box-shadow:var(--shadow)
+}
+.pipeline-head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-bottom:20px;border-bottom:1px solid var(--line)
+}
+.pipeline-head span{font:900 .7rem monospace}
+.live{color:var(--green)}
+.stage{
+  display:grid;grid-template-columns:45px 1fr auto;
+  gap:14px;align-items:center;padding:20px 0;
+  border-bottom:1px solid #e9e4dc
+}
+.stage:last-child{border-bottom:0}
+.stage-no{
+  width:36px;height:36px;border-radius:50%;
+  display:grid;place-items:center;background:#edf1fb;
+  color:var(--blue);font:900 .75rem monospace
+}
+.stage h3{font-size:.9rem}
+.stage p{color:var(--muted);font-size:.75rem}
+.stage-status{
+  padding:5px 8px;border-radius:6px;
+  background:#e8f5ed;color:var(--green);
+  font:900 .62rem monospace
+}
+
+/* SECTIONS */
+section{padding:75px 0}
+.section-head{
+  display:flex;justify-content:space-between;align-items:end;
+  gap:25px;margin-bottom:25px
+}
+.kicker{color:var(--red);font:900 .67rem monospace;letter-spacing:2px}
+.section-title{font-size:clamp(2rem,4vw,3.5rem);line-height:1;letter-spacing:-3px}
+.desc{max-width:430px;color:var(--muted);font-size:.88rem}
+
+/* ERROR LAB */
+.error-grid{
+  display:grid;grid-template-columns:.9fr 1.1fr;gap:16px
+}
+.error-card,.terminal,.git-card,.npm-card,.reflection{
+  border:1px solid var(--line);border-radius:18px;background:var(--white)
+}
+.error-card{padding:30px}
+.error-card h3{margin-bottom:8px}
+.error-card p{color:var(--muted);font-size:.86rem}
+.error-form{margin-top:24px}
+.error-form label{display:block;font-weight:800;font-size:.8rem;margin-bottom:6px}
+.error-form input{
+  width:100%;height:45px;padding:0 12px;
+  border:1px solid var(--line);border-radius:8px;
+  background:#fff;outline:none
+}
+.error-form input:focus{border-color:var(--blue)}
+.error-form button{margin-top:12px}
+#error-output{
+  min-height:25px;margin-top:15px;font-size:.8rem;font-weight:800
+}
+.success{color:var(--green)}
+.failure{color:var(--red)}
+
+.terminal{
+  background:#11161b;color:#e9edf1;
+  overflow:hidden
+}
+.terminal-bar{
+  padding:12px 15px;background:#1b2229;
+  display:flex;gap:6px
+}
+.term-dot{width:8px;height:8px;border-radius:50%;background:#777}
+.terminal pre{
+  padding:25px;white-space:pre-wrap;
+  font: .78rem/1.75 "Courier New",monospace;
+  color:#cbd5df
+}
+.code-blue{color:#75a1ff}
+.code-yellow{color:#f2c94c}
+.code-red{color:#ff8875}
+
+/* GITHUB */
+.git-layout{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px
+}
+.git-card{padding:28px}
+.git-card h3{margin-bottom:15px}
+.git-tree{
+  display:flex;flex-direction:column;gap:9px;
+  font: .78rem monospace
+}
+.git-row{
+  display:flex;justify-content:space-between;
+  padding:11px 13px;border:1px solid #ebe6de;border-radius:8px
+}
+.git-row strong{font-weight:800}
+.branch-main{color:var(--green)}
+.branch-feature{color:var(--purple)}
+.pr{
+  margin-top:16px;padding:15px;border-radius:10px;
+  background:#f1f5ff;border:1px solid #dce5ff
+}
+.pr strong{display:block;font-size:.85rem}
+.pr span{font-size:.72rem;color:var(--muted)}
+.git-commands{
+  margin-top:16px;padding:18px;
+  background:#11161b;color:#d8e0e8;border-radius:10px;
+  font: .72rem/1.8 monospace
+}
+.git-commands .green{color:#8be0ae}
+
+/* NPM */
+.npm-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px
+}
+.npm-card{padding:28px}
+.npm-card h3{margin-bottom:15px}
+.command-list{display:flex;flex-direction:column;gap:9px}
+.command{
+  padding:11px 13px;border:1px solid #ebe6de;
+  border-radius:8px;font: .75rem monospace;
+  background:#faf8f3
+}
+.command b{color:var(--blue)}
+.package{
+  background:#11161b;color:#dfe6ed;
+  border-radius:12px;padding:20px;
+  font:.72rem/1.7 monospace;overflow:auto
+}
+.json-key{color:#78a6ff}
+.json-value{color:#f2c94c}
+
+/* REFLECTION */
+.reflection{
+  margin-top:16px;padding:25px;
+  border-left:5px solid var(--yellow)
+}
+.reflection p{color:var(--muted);font-size:.85rem}
+
+/* FOOTER */
+footer{
+  padding:30px 0;border-top:1px solid var(--line);
+  color:var(--muted);font-size:.72rem
+}
+.footer-inner{display:flex;justify-content:space-between;gap:15px}
+
+/* RESPONSIVE */
+@media(max-width:850px){
+  .hero-grid,.error-grid,.git-layout,.npm-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  nav{padding:15px 0;align-items:flex-start;flex-direction:column}
+  .nav-links{flex-wrap:wrap;gap:10px 15px}
+  .branch-pill{display:none}
+  .hero-main{padding:32px}
+  h1{letter-spacing:-4px}
+  section{padding:60px 0}
+  .section-head{align-items:flex-start;flex-direction:column}
+  .stage{grid-template-columns:38px 1fr}
+  .stage-status{grid-column:2;width:max-content}
+  .footer-inner{flex-direction:column}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<nav class="container">
+  <a class="brand" href="#home">SHREYANSH<i>/</i>BUILD</a>
+
+  <div class="nav-links">
+    <a href="#errors">Errors</a>
+    <a href="#github">GitHub</a>
+    <a href="#npm">NPM</a>
+  </div>
+
+  <span class="branch-pill">branch: feature/error-handling</span>
+</nav>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section id="home" class="hero">
+<div class="container hero-grid">
+
+  <div class="hero-main">
+    <p class="eyebrow">Hack-O-Week / Week 09–10</p>
+
+    <h1>
+      From <span>code</span><br>
+      to workflow.
+    </h1>
+
+    <p class="hero-copy">
+      I’m Shreyansh Shirbhate. This version of my project focuses on
+      what happens around the code: catching failures, validating data,
+      working with GitHub branches and pull requests, and managing a
+      JavaScript project with NPM.
+    </p>
+
+    <div class="actions">
+      <a class="btn btn-blue" href="#errors">Test error handling ↓</a>
+      <a class="btn" href="#github">View workflow</a>
+    </div>
+  </div>
+
+  <aside class="pipeline">
+    <div class="pipeline-head">
+      <span>DELIVERY PIPELINE</span>
+      <span class="live">● ACTIVE</span>
+    </div>
+
+    <div class="stage">
+      <div class="stage-no">01</div>
+      <div>
+        <h3>Validate</h3>
+        <p>Input + custom errors</p>
+      </div>
+      <span class="stage-status">PASS</span>
+    </div>
+
+    <div class="stage">
+      <div class="stage-no">02</div>
+      <div>
+        <h3>Branch</h3>
+        <p>feature/error-handling</p>
+      </div>
+      <span class="stage-status">READY</span>
+    </div>
+
+    <div class="stage">
+      <div class="stage-no">03</div>
+      <div>
+        <h3>Review</h3>
+        <p>Pull request workflow</p>
+      </div>
+      <span class="stage-status">READY</span>
+    </div>
+
+    <div class="stage">
+      <div class="stage-no">04</div>
+      <div>
+        <h3>Package</h3>
+        <p>NPM scripts + package.json</p>
+      </div>
+      <span class="stage-status">READY</span>
+    </div>
+  </aside>
+
+</div>
+</section>
+
+<!-- ERROR HANDLING -->
+<section id="errors">
+<div class="container">
+
+  <div class="section-head">
+    <div>
+      <p class="kicker">01 / ERROR HANDLING</p>
+      <h2 class="section-title">Break it.<br>Handle it.</h2>
+    </div>
+    <p class="desc">
+      Try the validator below. It uses a custom error class,
+      throw, try/catch and finally to turn bad input into a
+      user-friendly message.
+    </p>
+  </div>
+
+  <div class="error-grid">
+
+    <article class="error-card">
+      <h3>Build Validator</h3>
+      <p>
+        Enter a project name. An empty or very short name intentionally
+        triggers a custom validation error.
+      </p>
+
+      <form class="error-form" id="validation-form">
+        <label for="project-name">Project name</label>
+        <input id="project-name" type="text"
+               placeholder="e.g. Campus Planner">
+
+        <button class="btn btn-red" type="submit">
+          Run validation
+        </button>
+
+        <div id="error-output" aria-live="polite"></div>
+      </form>
+    </article>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="term-dot"></span>
+        <span class="term-dot"></span>
+        <span class="term-dot"></span>
+      </div>
+
+      <pre><span class="code-blue">class</span> ProjectError <span class="code-blue">extends</span> Error {
+  constructor(message) {
+    super(message);
+    this.name = <span class="code-yellow">"ProjectError"</span>;
+  }
+}
+
+<span class="code-blue">try</span> {
+  validateProject(name);
+} <span class="code-blue">catch</span> (error) {
+  showFriendlyMessage(error);
+} <span class="code-blue">finally</span> {
+  resetForm();
+}</pre>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- GITHUB -->
+<section id="github">
+<div class="container">
+
+  <div class="section-head">
+    <div>
+      <p class="kicker">02 / GITHUB WORKFLOW</p>
+      <h2 class="section-title">Ship it<br>properly.</h2>
+    </div>
+    <p class="desc">
+      The project workflow demonstrates repository creation,
+      branching, pushing a feature, opening a pull request and
+      merging back into main.
+    </p>
+  </div>
+
+  <div class="git-layout">
+
+    <article class="git-card">
+      <h3>Repository structure</h3>
+
+      <div class="git-tree">
+        <div class="git-row">
+          <strong>main</strong>
+          <span class="branch-main">production</span>
+        </div>
+
+        <div class="git-row">
+          <strong>feature/error-handling</strong>
+          <span class="branch-feature">active</span>
+        </div>
+
+        <div class="git-row">
+          <strong>README.md</strong>
+          <span>documentation</span>
+        </div>
+
+        <div class="git-row">
+          <strong>package.json</strong>
+          <span>NPM config</span>
+        </div>
+
+        <div class="git-row">
+          <strong>index.html</strong>
+          <span>application</span>
+        </div>
+      </div>
+
+      <div class="pr">
+        <strong>✓ Pull Request #3 — Add validation & error handling</strong>
+        <span>feature/error-handling → main · Ready to merge</span>
+      </div>
+    </article>
+
+    <article class="git-card">
+      <h3>Command sequence</h3>
+
+      <div class="git-commands">
+        <span class="green">$ git clone repository-url</span><br>
+        $ git checkout -b feature/error-handling<br>
+        $ git add .<br>
+        $ git commit -m "Add custom error handling"<br>
+        $ git push origin feature/error-handling<br><br>
+        $ git checkout main<br>
+        $ git pull origin main<br>
+        $ git merge feature/error-handling
+      </div>
+
+      <p style="margin-top:15px;color:var(--muted);font-size:.76rem">
+        In the real submission, these commands are executed against
+        the student's GitHub repository.
+      </p>
+    </article>
+
+  </div>
+
+  <div class="reflection">
+    <strong>Workflow goal:</strong>
+    <p>
+      Keep the stable <b>main</b> branch protected while development
+      happens on a feature branch. A pull request gives the change a
+      review point before it becomes part of the main project.
+    </p>
+  </div>
+
+</div>
+</section>
+
+<!-- NPM -->
+<section id="npm">
+<div class="container">
+
+  <div class="section-head">
+    <div>
+      <p class="kicker">03 / NPM BASICS</p>
+      <h2 class="section-title">Package the<br>project.</h2>
+    </div>
+    <p class="desc">
+      NPM provides the project manifest, dependency management and
+      repeatable scripts for running development tasks.
+    </p>
+  </div>
+
+  <div class="npm-grid">
+
+    <article class="npm-card">
+      <h3>Essential commands</h3>
+
+      <div class="command-list">
+        <div class="command"><b>npm init -y</b> — create package.json</div>
+        <div class="command"><b>npm install</b> — install dependencies</div>
+        <div class="command"><b>npm install &lt;package&gt;</b> — add a package</div>
+        <div class="command"><b>npm uninstall &lt;package&gt;</b> — remove a package</div>
+        <div class="command"><b>npm run dev</b> — run development script</div>
+        <div class="command"><b>npm list</b> — inspect installed packages</div>
+      </div>
+    </article>
+
+    <article class="npm-card">
+      <h3>package.json</h3>
+
+      <pre class="package">{
+  <span class="json-key">"name"</span>: <span class="json-value">"shreyansh-build-lab"</span>,
+  <span class="json-key">"version"</span>: <span class="json-value">"1.0.0"</span>,
+  <span class="json-key">"description"</span>: <span class="json-value">"Hack-O-Week project"</span>,
+  <span class="json-key">"scripts"</span>: {
+    <span class="json-key">"dev"</span>: <span class="json-value">"npx serve ."</span>,
+    <span class="json-key">"start"</span>: <span class="json-value">"npx serve ."</span>
+  }
+}</pre>
+    </article>
+
+  </div>
+</div>
+</section>
+
+</main>
+
+<footer>
+<div class="container footer-inner">
+  <span>SHREYANSH / BUILD PIPELINE · 2026</span>
+  <span>Week 09–10 · Error Handling · GitHub · NPM</span>
+</div>
+</footer>
+
+<script>
+/* =========================================================
+   WEEK 9–10 JAVASCRIPT
+   Error handling + custom errors + DOM events
+   ========================================================= */
+
+class ProjectError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "ProjectError";
+  }
+}
+
+function validateProject(name) {
+  const cleanName = name.trim();
+
+  if (cleanName.length === 0) {
+    throw new ProjectError(
+      "ProjectError: A project name is required."
+    );
+  }
+
+  if (cleanName.length < 4) {
+    throw new ProjectError(
+      "ProjectError: Project name must contain at least 4 characters."
+    );
+  }
+
+  return cleanName;
+}
+
+document
+  .querySelector("#validation-form")
+  .addEventListener("submit", event => {
+
+    event.preventDefault();
+
+    const input = document.querySelector("#project-name");
+    const output = document.querySelector("#error-output");
+
+    try {
+      const projectName = validateProject(input.value);
+
+      output.className = "success";
+      output.textContent =
+        `✓ Validation passed — "${projectName}" is ready to build.`;
+
+    } catch (error) {
+
+      output.className = "failure";
+      output.textContent =
+        `⚠ ${error.message}`;
+
+      console.error(error);
+
+    } finally {
+
+      input.focus();
+    }
+  });
+
+/* Demonstration of a Promise */
+function checkRepository() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve("Repository check completed.");
+    }, 400);
+  });
+}
+
+checkRepository().then(message => {
+  console.log(message);
+});
+</script>
+
+</body>
+</html>
