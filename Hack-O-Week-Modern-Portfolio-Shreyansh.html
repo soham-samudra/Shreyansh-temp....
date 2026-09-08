@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Modern student developer portfolio for Hack-O-Week.">
+<title>Shreyansh Shirbhate — Student Developer</title>
+
+<style>
+:root {
+  --bg: #070707;
+  --panel: #101010;
+  --panel-2: #151515;
+  --text: #f5f5f5;
+  --muted: #929292;
+  --line: #252525;
+  --lime: #c8ff32;
+  --purple: #9b7bff;
+  --orange: #ff8a4c;
+  --max: 1180px;
+  --radius: 22px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at 15% 5%, rgba(200,255,50,.08), transparent 25%),
+    radial-gradient(circle at 85% 35%, rgba(155,123,255,.08), transparent 25%),
+    var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+.container {
+  width: min(92%, var(--max));
+  margin: auto;
+}
+
+/* NAV */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid var(--line);
+  background: rgba(7,7,7,.88);
+  backdrop-filter: blur(16px);
+}
+
+.nav {
+  min-height: 76px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font-weight: 900;
+  letter-spacing: -.5px;
+}
+
+.brand b {
+  color: var(--lime);
+}
+
+.nav-links {
+  display: flex;
+  gap: 26px;
+  color: #aaa;
+  font-size: .9rem;
+  font-weight: 700;
+}
+
+.nav-links a:hover {
+  color: var(--lime);
+}
+
+.nav-cta {
+  padding: 10px 16px;
+  border: 1px solid #3b3b3b;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: .85rem;
+}
+
+.nav-cta:hover {
+  border-color: var(--lime);
+  color: var(--lime);
+}
+
+/* HERO */
+.hero {
+  padding: 90px 0 70px;
+}
+
+.hero-layout {
+  display: grid;
+  grid-template-columns: 1.35fr .65fr;
+  gap: 30px;
+  align-items: stretch;
+}
+
+.hero-main {
+  min-height: 570px;
+  padding: clamp(35px, 6vw, 75px);
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.04), transparent 50%),
+    #0d0d0d;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.kicker {
+  display: inline-flex;
+  width: fit-content;
+  padding: 7px 12px;
+  border: 1px solid rgba(200,255,50,.25);
+  border-radius: 999px;
+  color: var(--lime);
+  background: rgba(200,255,50,.05);
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 850px;
+  margin: 22px 0;
+  font-size: clamp(3.3rem, 7vw, 7.5rem);
+  line-height: .88;
+  letter-spacing: -7px;
+}
+
+.hero h1 span {
+  color: var(--lime);
+}
+
+.hero-copy {
+  max-width: 650px;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 20px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  font-weight: 900;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-main {
+  background: var(--lime);
+  color: #080808;
+  border-color: var(--lime);
+}
+
+.btn-dark {
+  background: #111;
+  color: white;
+}
+
+.profile-panel {
+  min-height: 570px;
+  padding: 30px;
+  border-radius: 30px;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(160deg, rgba(155,123,255,.18), transparent 42%),
+    var(--panel);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.profile-top {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: .75rem;
+  font-weight: 800;
+}
+
+.profile-avatar {
+  width: 145px;
+  height: 145px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin: 50px auto 25px;
+  border: 1px solid rgba(200,255,50,.5);
+  background:
+    radial-gradient(circle at 35% 30%, #dfff82, var(--lime) 28%, #657f13 70%, #202800);
+  color: #080808;
+  font-size: 4rem;
+  font-weight: 950;
+  box-shadow: 0 0 70px rgba(200,255,50,.12);
+}
+
+.profile-panel h2 {
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.profile-role {
+  text-align: center;
+  color: var(--muted);
+}
+
+.availability {
+  margin-top: 25px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  color: #bbb;
+  text-align: center;
+  font-size: .85rem;
+}
+
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 7px;
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 12px var(--lime);
+}
+
+/* SECTION */
+section {
+  padding: 100px 0;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 30px;
+  margin-bottom: 35px;
+}
+
+.section-tag {
+  color: var(--lime);
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.section-title {
+  margin-top: 7px;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  line-height: 1;
+  letter-spacing: -3px;
+}
+
+.section-intro {
+  max-width: 420px;
+  color: var(--muted);
+}
+
+/* ABOUT */
+.about-layout {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 25px;
+}
+
+.about-number {
+  padding: 35px;
+  min-height: 300px;
+  border-radius: var(--radius);
+  background: var(--lime);
+  color: #090909;
+}
+
+.about-number strong {
+  display: block;
+  font-size: 7rem;
+  line-height: .8;
+  letter-spacing: -8px;
+}
+
+.about-number span {
+  display: block;
+  margin-top: 35px;
+  max-width: 250px;
+  font-weight: 800;
+}
+
+.about-text {
+  padding: 35px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.about-text p {
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.about-text p + p {
+  margin-top: 20px;
+}
+
+.facts {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.fact {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: #ccc;
+  font-size: .8rem;
+}
+
+/* SKILLS */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+.skill-card {
+  min-height: 235px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  background: var(--panel);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: .2s;
+}
+
+.skill-card:nth-child(2) {
+  background: #171421;
+}
+
+.skill-card:nth-child(3) {
+  background: #131c16;
+}
+
+.skill-card:nth-child(4) {
+  background: #191612;
+}
+
+.skill-card:nth-child(5) {
+  background: #15131e;
+}
+
+.skill-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--lime);
+}
+
+.skill-index {
+  color: #666;
+  font-size: .75rem;
+  font-weight: 900;
+}
+
+.skill-card h3 {
+  font-size: 1.3rem;
+}
+
+.skill-card p {
+  color: var(--muted);
+  font-size: .84rem;
+}
+
+.skill-level {
+  color: var(--lime);
+  font-size: .7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+/* PROJECTS */
+.project-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.project-controls select {
+  min-height: 45px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: white;
+  background: var(--panel);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.project-card {
+  min-height: 320px;
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  position: relative;
+  overflow: hidden;
+  transition: .2s;
+}
+
+.project-card:hover {
+  border-color: #555;
+  background: var(--panel-2);
+}
+
+.project-card.featured {
+  background:
+    radial-gradient(circle at 90% 10%, rgba(200,255,50,.12), transparent 35%),
+    var(--panel);
+}
+
+.project-no {
+  color: #555;
+  font-size: .8rem;
+  font-weight: 900;
+}
+
+.project-type {
+  margin-top: 55px;
+  color: var(--lime);
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.project-card h3 {
+  margin: 8px 0;
+  font-size: 1.7rem;
+  letter-spacing: -.8px;
+}
+
+.project-card p {
+  max-width: 560px;
+  color: var(--muted);
+}
+
+.project-footer {
+  position: absolute;
+  left: 30px;
+  right: 30px;
+  bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project-category {
+  color: #777;
+  font-size: .75rem;
+}
+
+.project-link {
+  color: var(--lime);
+  font-weight: 900;
+}
+
+.project-status {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: .85rem;
+}
+
+/* PROCESS */
+.process {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.process-card {
+  padding: 28px;
+  min-height: 190px;
+  border-top: 2px solid var(--purple);
+  background: var(--panel);
+}
+
+.process-card:nth-child(2) {
+  border-color: var(--orange);
+}
+
+.process-card:nth-child(3) {
+  border-color: var(--lime);
+}
+
+.process-card span {
+  color: #666;
+  font-size: .75rem;
+  font-weight: 900;
+}
+
+.process-card h3 {
+  margin: 20px 0 8px;
+}
+
+.process-card p {
+  color: var(--muted);
+  font-size: .88rem;
+}
+
+/* CONTACT */
+.contact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.contact-copy {
+  padding: 40px;
+  border-radius: var(--radius);
+  background: var(--lime);
+  color: #090909;
+}
+
+.contact-copy h2 {
+  max-width: 500px;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: .9;
+  letter-spacing: -4px;
+}
+
+.contact-copy p {
+  margin-top: 25px;
+  max-width: 430px;
+  font-weight: 700;
+}
+
+.contact-form {
+  padding: 35px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: .85rem;
+  font-weight: 800;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  outline: none;
+  color: white;
+  background: #0a0a0a;
+}
+
+input:focus, textarea:focus {
+  border-color: var(--lime);
+  box-shadow: 0 0 0 3px rgba(200,255,50,.08);
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* FOOTER */
+footer {
+  padding: 30px 0;
+  border-top: 1px solid var(--line);
+  color: #666;
+  font-size: .8rem;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 950px) {
+  .hero-layout,
+  .about-layout,
+  .contact {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-panel {
+    min-height: 430px;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .process {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .nav {
+    padding: 15px 0;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .nav-links {
+    width: 100%;
+    gap: 12px 17px;
+    order: 3;
+  }
+
+  .nav-cta {
+    display: none;
+  }
+
+  .hero {
+    padding-top: 45px;
+  }
+
+  .hero-main {
+    min-height: 500px;
+    padding: 30px;
+  }
+
+  .hero h1 {
+    letter-spacing: -4px;
+  }
+
+  section {
+    padding: 70px 0;
+  }
+
+  .section-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .skills-grid,
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-number strong {
+    font-size: 5rem;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav class="nav container" aria-label="Main navigation">
+    <a class="brand" href="#home">SHREYANSH<b>.</b>SHIRBHATE</a>
+
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Work</a>
+      <a href="#process">Approach</a>
+    </div>
+
+    <a class="nav-cta" href="#contact">Let's talk ↗</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="container hero-layout">
+
+    <div class="hero-main">
+      <span class="kicker">Hack-O-Week / Week 5–6</span>
+
+      <h1>
+        I build
+        <span>things for the web.</span>
+      </h1>
+
+      <p class="hero-copy">
+        Hey, I’m Shreyansh — a third-semester computer science student
+        currently turning HTML, CSS and JavaScript into useful digital
+        experiences. I like simple interfaces, clean code and projects
+        that actually do something.
+      </p>
+
+      <div class="actions">
+        <a class="btn btn-main" href="#projects">Explore my work ↘</a>
+        <a class="btn btn-dark" href="#contact">Send a message</a>
+      </div>
+    </div>
+
+    <aside class="profile-panel">
+      <div class="profile-top">
+        <span>PROFILE / 2026</span>
+        <span>01 — 05</span>
+      </div>
+
+      <div>
+        <div class="profile-avatar">A</div>
+        <h2>Shreyansh Shirbhate</h2>
+        <p class="profile-role">Student Developer · UI Enthusiast</p>
+
+        <div class="availability">
+          <span class="dot"></span>
+          Currently learning JavaScript
+        </div>
+      </div>
+
+      <div class="profile-top">
+        <span>NAGPUR, INDIA</span>
+        <span>CS STUDENT</span>
+      </div>
+    </aside>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+
+    <div class="section-head">
+      <div>
+        <p class="section-tag">01 / About</p>
+        <h2 class="section-title">More than<br>just code.</h2>
+      </div>
+
+      <p class="section-intro">
+        I’m learning by building — taking concepts from class and
+        turning them into small, practical products.
+      </p>
+    </div>
+
+    <div class="about-layout">
+
+      <div class="about-number">
+        <strong>03</strong>
+        <span>
+          Semester student with a growing interest in frontend
+          development and problem solving.
+        </span>
+      </div>
+
+      <article class="about-text">
+        <p>
+          I started with the basics: understanding how a webpage is
+          structured, how layouts respond to different screens and how
+          good accessibility makes a website easier for everyone to use.
+        </p>
+
+        <p>
+          Now I’m adding JavaScript to the mix — working with arrays,
+          objects, functions and DOM interactions to turn static pages
+          into interactive experiences.
+        </p>
+
+        <div class="facts">
+          <span class="fact">Curious learner</span>
+          <span class="fact">Frontend focused</span>
+          <span class="fact">Problem solver</span>
+          <span class="fact">Always experimenting</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+
+    <div class="section-head">
+      <div>
+        <p class="section-tag">02 / Skills</p>
+        <h2 class="section-title">Current<br>toolkit.</h2>
+      </div>
+
+      <p class="section-intro">
+        A dynamic skill list generated with JavaScript using
+        arrays, objects and <code>map()</code>.
+      </p>
+    </div>
+
+    <div id="skills-container" class="skills-grid"></div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+
+    <div class="section-head">
+      <div>
+        <p class="section-tag">03 / Selected Work</p>
+        <h2 class="section-title">Small builds.<br>Real practice.</h2>
+      </div>
+
+      <p class="section-intro">
+        These projects are designed to demonstrate the concepts
+        covered during Hack-O-Week.
+      </p>
+    </div>
+
+    <div class="project-controls">
+      <select id="category-filter" aria-label="Filter projects by category">
+        <option value="all">All projects</option>
+      </select>
+
+      <button class="btn btn-dark" id="find-project" type="button">
+        Find featured project
+      </button>
+    </div>
+
+    <div id="projects-container" class="projects-grid"></div>
+    <p id="project-status" class="project-status"></p>
+
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section id="process">
+  <div class="container">
+
+    <div class="section-head">
+      <div>
+        <p class="section-tag">04 / Approach</p>
+        <h2 class="section-title">How I<br>learn.</h2>
+      </div>
+    </div>
+
+    <div class="process">
+
+      <article class="process-card">
+        <span>STEP 01</span>
+        <h3>Understand</h3>
+        <p>
+          Break a concept into small pieces and understand why it
+          works before trying to memorize it.
+        </p>
+      </article>
+
+      <article class="process-card">
+        <span>STEP 02</span>
+        <h3>Build</h3>
+        <p>
+          Turn the concept into a small working feature instead of
+          leaving it as a textbook example.
+        </p>
+      </article>
+
+      <article class="process-card">
+        <span>STEP 03</span>
+        <h3>Improve</h3>
+        <p>
+          Test, refactor and make the interface more useful,
+          responsive and accessible.
+        </p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container contact">
+
+    <div class="contact-copy">
+      <p class="section-tag" style="color:#090909;">05 / Contact</p>
+      <h2>Have an idea?<br>Let’s build it.</h2>
+      <p>
+        Whether it’s a college project, a web idea or just a question,
+        drop me a message.
+      </p>
+    </div>
+
+    <form class="contact-form" id="contact-form">
+
+      <div class="form-group">
+        <label for="name">Your name</label>
+        <input id="name" name="name" type="text"
+               placeholder="Enter your name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email"
+               placeholder="you@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="message">What are we building?</label>
+        <textarea id="message" name="message" rows="5"
+                  placeholder="Tell me a little about it..." required></textarea>
+      </div>
+
+      <button class="btn btn-main" type="submit">
+        Send message ↗
+      </button>
+
+    </form>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <p>© 2026 Shreyansh Shirbhate — Built for Hack-O-Week</p>
+    <a href="#home">Back to top ↑</a>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   WEEK 5–6 JAVASCRIPT
+   ========================================================= */
+
+/* let / const */
+const skills = [
+  {
+    name: "HTML5",
+    description: "Semantic markup, forms and accessibility.",
+    level: "Strong"
+  },
+  {
+    name: "CSS3",
+    description: "Responsive layouts, Grid, Flexbox and variables.",
+    level: "Strong"
+  },
+  {
+    name: "JavaScript",
+    description: "Modern syntax, DOM and interactive features.",
+    level: "Learning"
+  },
+  {
+    name: "Git",
+    description: "Version control and maintaining project history.",
+    level: "Learning"
+  },
+  {
+    name: "UI Design",
+    description: "Clean layouts, spacing and visual hierarchy.",
+    level: "Growing"
+  }
+];
+
+const projects = [
+  {
+    id: 1,
+    number: "01",
+    type: "HTML + CSS",
+    title: "Campus Connect",
+    description: "A responsive student information portal concept with accessible navigation and structured content.",
+    category: "Web",
+    featured: false
+  },
+  {
+    id: 2,
+    number: "02",
+    type: "CSS3",
+    title: "Focus Dashboard",
+    description: "A dark productivity dashboard exploring CSS Grid, Flexbox, responsive design and CSS variables.",
+    category: "UI",
+    featured: true
+  },
+  {
+    id: 3,
+    number: "03",
+    type: "JAVASCRIPT",
+    title: "Task Tracker",
+    description: "A beginner-friendly task interface using arrays, objects and JavaScript methods to manage task data.",
+    category: "JavaScript",
+    featured: true
+  },
+  {
+    id: 4,
+    number: "04",
+    type: "HTML + CSS + JS",
+    title: "Student Portfolio",
+    description: "A complete responsive portfolio combining semantic HTML, modern CSS and dynamic JavaScript rendering.",
+    category: "Web",
+    featured: true
+  }
+];
+
+/* map() + arrow functions + destructuring */
+const createSkillCard = ({ name, description, level }, index) => `
+  <article class="skill-card">
+    <span class="skill-index">${String(index + 1).padStart(2, "0")}</span>
+
+    <div>
+      <h3>${name}</h3>
+      <p>${description}</p>
+    </div>
+
+    <span class="skill-level">${level}</span>
+  </article>
+`;
+
+document.querySelector("#skills-container").innerHTML =
+  skills.map(createSkillCard).join("");
+
+/* reduce() */
+const totalSkills = skills.reduce(
+  total => total + 1,
+  0
+);
+
+const totalProjects = projects.reduce(
+  total => total + 1,
+  0
+);
+
+/* Template literals */
+console.log(`Portfolio contains ${totalProjects} projects and ${totalSkills} skills.`);
+
+/* spread */
+const projectBackup = [...projects];
+
+/* rest */
+const countItems = (...items) => items.length;
+
+console.log(`Total projects using rest: ${countItems(...projectBackup)}`);
+
+/* categories using map + Set + spread */
+const categories = [
+  ...new Set(
+    projects.map(({ category }) => category)
+  )
+];
+
+const filter = document.querySelector("#category-filter");
+
+filter.innerHTML += categories
+  .map(category => `<option value="${category}">${category}</option>`)
+  .join("");
+
+/* Project rendering */
+const createProjectCard = ({
+  number,
+  type,
+  title,
+  description,
+  category,
+  featured
+}) => `
+  <article class="project-card ${featured ? "featured" : ""}">
+
+    <span class="project-no">${number}</span>
+
+    <div class="project-type">${type}</div>
+
+    <h3>${title}</h3>
+
+    <p>${description}</p>
+
+    <div class="project-footer">
+      <span class="project-category">${category}</span>
+      <a class="project-link" href="#contact">View ↗</a>
+    </div>
+
+  </article>
+`;
+
+const renderProjects = projectList => {
+
+  document.querySelector("#projects-container").innerHTML =
+    projectList.map(createProjectCard).join("");
+
+  document.querySelector("#project-status").textContent =
+    `${projectList.length} project(s) currently displayed.`;
+};
+
+renderProjects(projects);
+
+/* filter() */
+filter.addEventListener("change", event => {
+
+  const selectedCategory = event.target.value;
+
+  const filteredProjects =
+    selectedCategory === "all"
+      ? projects
+      : projects.filter(
+          ({ category }) =>
+            category === selectedCategory
+        );
+
+  renderProjects(filteredProjects);
+});
+
+/* find() */
+document
+  .querySelector("#find-project")
+  .addEventListener("click", () => {
+
+    const featuredProject = projects.find(
+      ({ title }) =>
+        title === "Student Portfolio"
+    );
+
+    document.querySelector("#project-status").textContent =
+      featuredProject
+        ? `Found project: ${featuredProject.title} — ${featuredProject.category}`
+        : "Project not found.";
+  });
+
+/* some() */
+const hasFeaturedProject = projects.some(
+  ({ featured }) => featured === true
+);
+
+/* every() */
+const allProjectsValid = projects.every(
+  ({ title, description, category }) =>
+    Boolean(title && description && category)
+);
+
+console.log(
+  `Featured project exists: ${hasFeaturedProject}`
+);
+
+console.log(
+  `All project records valid: ${allProjectsValid}`
+);
+
+/* Contact form */
+document
+  .querySelector("#contact-form")
+  .addEventListener("submit", event => {
+
+    event.preventDefault();
+
+    const data = new FormData(event.target);
+
+    /* destructuring */
+    const { name, email, message } =
+      Object.fromEntries(data);
+
+    alert(
+      `Thanks ${name}! Your message has been received.`
+    );
+
+    console.log(
+      `New message from ${name} (${email}): ${message}`
+    );
+
+    event.target.reset();
+  });
+</script>
+
+</body>
+</html>
